@@ -7,7 +7,8 @@
   "scripts": {
     "client": "cd client && pnpm start",
     "server": "cd server && pnpm run dev",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
