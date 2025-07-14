@@ -1,26 +1,37 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_BASE_URL;
+
 export default function BugList({ refresh }) {
   const [bugs, setBugs] = useState([]);
   const [filter, setFilter] = useState("all");
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/bugs")
-      .then((res) => setBugs(res.data));
+      .get(`${API_URL}/bugs`)
+      .then((res) => setBugs(res.data))
+      .catch((err) => console.error("❌ Failed to fetch bugs:", err));
   }, [refresh]);
 
   const updateStatus = async (id, status) => {
-    await axios.put(`http://localhost:5000/api/bugs/${id}`, { status });
-    setBugs((prev) =>
-      prev.map((bug) => (bug._id === id ? { ...bug, status } : bug))
-    );
+    try {
+      await axios.put(`${API_URL}/bugs/${id}`, { status });
+      setBugs((prev) =>
+        prev.map((bug) => (bug._id === id ? { ...bug, status } : bug))
+      );
+    } catch (err) {
+      console.error("❌ Failed to update status:", err);
+    }
   };
 
   const deleteBug = async (id) => {
-    await axios.delete(`http://localhost:5000/api/bugs/${id}`);
-    setBugs((prev) => prev.filter((bug) => bug._id !== id));
+    try {
+      await axios.delete(`${API_URL}/bugs/${id}`);
+      setBugs((prev) => prev.filter((bug) => bug._id !== id));
+    } catch (err) {
+      console.error("❌ Failed to delete bug:", err);
+    }
   };
 
   const filteredBugs =
