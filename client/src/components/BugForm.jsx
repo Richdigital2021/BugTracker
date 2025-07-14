@@ -13,7 +13,7 @@ export default function BugForm({ onSuccess }) {
     setError("");
 
     try {
-      await axios.post("http://localhost:5000/api/bugs", {
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/bugs`, {
         title,
         description,
       });
