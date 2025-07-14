@@ -1,14 +1,13 @@
-// vite.config.js
+// client/vite.config.js  ← file sits inside /client
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-import { resolve } from "path";
 
 export default defineConfig({
-  root: resolve(__dirname, "client"),
+  // root: resolve(__dirname, 'client'),   ← ❌ remove this
   plugins: [react(), tailwindcss()],
   build: {
-    outDir: resolve(__dirname, "dist"),
+    outDir: "dist", // /client/dist
     emptyOutDir: true,
   },
 });
