@@ -8,7 +8,12 @@ import errorHandler from "./src/middleware/errorHandler.js";
 dotenv.config();
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // or list specific origins like "https://bug-tracker-xxx.vercel.app"
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 app.use(express.json());
 app.use("/api/bugs", bugRoutes);
 app.use(errorHandler);
