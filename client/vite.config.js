@@ -1,18 +1,13 @@
+// vite.config.js
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
-import path from "path";
+import { resolve } from "path";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    tailwindcss(), // ✅ Use the Vite plugin
-  ],
-  resolve: {
-    alias: { "@": path.resolve(__dirname, "src") },
-  },
-  root: "client", // Set to where your index.html lives
+  root: resolve(__dirname, "client"),
+  plugins: [react()],
   build: {
-    outDir: "dist", // Or whichever output dir you want
+    outDir: resolve(__dirname, "dist"),
+    emptyOutDir: true,
   },
 });
